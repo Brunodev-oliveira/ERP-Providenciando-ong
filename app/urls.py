@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/',include('accounts.urls')),
     path('beneficiaries/',include('beneficiaries.urls')),
+    
     path('donations/',include('donations.urls')),    
     path('projects/', include('projects.urls')),
     path('stock/suppliers/', include('stock.urls' , namespace='sotck_suppliers')),

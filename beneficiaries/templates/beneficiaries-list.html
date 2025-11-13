@@ -112,7 +112,7 @@
             }
 
             // enviar o nome do beneficiário para o backend para exclusão
-            await fetch(`/beneficiaries/${id}/`, {
+            await fetch(`/beneficiaries/delete/${id}/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}',
