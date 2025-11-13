@@ -65,7 +65,8 @@
                             <td class="px-6 py-4">{{supplier.email}}</td>
                             <td class="px-6 py-4 text-center">
                                 <button
-                                    class="rounded-md bg-blue-button/25 px-3 py-1.5 text-sm font-medium text-blue-buttonlight hover:bg-zinc-200 ">Editar</button>
+                                    class="rounded-md bg-blue-button/25 px-3 py-1.5 text-sm font-medium text-blue-buttonlight hover:bg-zinc-200 ">
+                                    <a href="{% url 'stock:editar_fornecedor' supplier.id_supplier %}">Editar</button>
                                 <button
                                     class="ml-2 rounded-md bg-red-100 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-200 " onclick="deletar('{{ supplier.id_supplier }}')">Excluir</button>
                             </td>

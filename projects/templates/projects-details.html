@@ -57,7 +57,8 @@
                 class="flex flex-col gap-4 border-t border-gray-200  bg-primary  p-6 ">
                 <div class="flex gap-3 justify-end">
                     <button
-                        class="inline-flex items-center justify-center rounded  px-4 py-2 text-sm font-medium bg-blue-button/20 text-blue-button hover:bg-blue-button/30 ">Editar
+                        class="inline-flex items-center justify-center rounded  px-4 py-2 text-sm font-medium bg-blue-button/20 text-blue-button hover:bg-blue-button/30 ">
+                        <a href="{% url 'projects:editar_projetos' project.id_project %}">Editar
                         projeto
                     </button>
                     <button

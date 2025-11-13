@@ -6,7 +6,7 @@ from beneficiaries.models import Beneficiary
 class BeneficiariesModelForm(forms.ModelForm):
     class Meta:
         model = Beneficiary
-        fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status",)
+        fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status","projects",)
         widgets = {
             'beneficiary_name': forms.TextInput(attrs={
                 'class': 'block w-full rounded-lg border-gray-300 bg-white placeholder-gray-400 '
@@ -75,6 +75,10 @@ class BeneficiariesModelForm(forms.ModelForm):
             }),
             'family_income': forms.NumberInput(attrs={
                 'class': 'block w-full rounded-lg border-gray-300 bg-white placeholder-gray-400 '
+                         'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
+            }),
+            'projects': forms.Select(attrs={
+                'class': 'block w-full rounded-lg border-gray-300 bg-white '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
             }),
         }
@@ -201,6 +205,7 @@ class auto_register_Form(forms.ModelForm):
                 'class': 'block w-full rounded-lg border-gray-300 bg-white placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
             }),
+            
         }
         
         def clean_cpf(self):

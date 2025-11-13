@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Supplier
 from stock.form import suppliers_form
 
@@ -39,6 +39,19 @@ def supplier_form(request):
         form = suppliers_form()
 
     return render(request, 'suppliers-registration.html', {'form': form, 'success': success})
+
+def supplier_edit(request,pk):
+    supplier = get_object_or_404(Supplier, pk=pk)
+
+    if request.method == 'POST':
+        form = suppliers_form(request.POST, instance=supplier)
+        if form.is_valid:
+            form.save()
+            return redirect('stock:Fornecedores')
+    else:
+        form = suppliers_form(instance=supplier)
+    
+    return render(request,'suppliers-edit.html',{'form': form, 'supplier': supplier})
     
 
 
