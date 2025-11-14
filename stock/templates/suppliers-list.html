@@ -103,13 +103,15 @@
         });
 
             const deletar = async (id) => {
-            const confirmacao = confirm("Tem certeza que deseja excluir este fornecedor?");
+        
+
+            const confirmacao = confirm(`Tem certeza que deseja excluir este fornecedor ?`);
             if (!confirmacao) {
                 return;
             }
 
             // enviar o nome do beneficiário para o backend para exclusão
-            await fetch(`/stock/suppliers/${id}/`, {
+            await fetch(`/stock/suppliers/delete/${id}/`, {
                 method: 'POST',
                 headers: {
                     'X-CSRFToken': '{{ csrf_token }}',

@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Supplier
 
 
@@ -13,13 +13,19 @@ def supplier_details(request, pk):
 
     supplier = get_object_or_404(Supplier, pk = pk)
 
+    return render(request, 'suppliers-details.html', { 'supplier': supplier })
+
+
+
+def supplier_delete(request, pk):
+    supplier = get_object_or_404(Supplier,pk = pk)
+
     if request.method == 'POST':
         supplier.delete()
-        return render(request, 'suppliers-list.html', {
-            'suppliers': Supplier.objects.all()
-        })
+        
+        redirect('Fornecedores')
 
-    return render(request, 'suppliers-details.html', { 'supplier': supplier })
+
 
 
 def stock_entry(request):

@@ -118,8 +118,9 @@
  {% block extra_js%}
  <script>
     const deletar = async(id)=>{
+        {{beneficiary.beneficiary_name}}
 
-        const confirmacao = confirm(`Deseja mesmo excluir ${{beneficiary.beneficiary_name}}`)
+        const confirmacao = confirm(`Deseja mesmo excluir {{beneficiary.beneficiary_name}}`)
 
         if(!confirmacao){
             return ;

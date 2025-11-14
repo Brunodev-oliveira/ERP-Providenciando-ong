@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Donation
+# from
 
 
 
@@ -28,3 +29,6 @@ def donation_details(request, pk):
 
     return render(request,'donations-details.html', { 'donation': donation })
 
+# def donation_register(request):
+#     eligible_beneficiaries = Beneficiary.
+#     return render(request, 'register-donations.html')

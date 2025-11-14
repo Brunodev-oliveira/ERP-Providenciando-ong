@@ -30,6 +30,9 @@ def beneficiary_details(request,pk):
 
     return render(request,'beneficiaries-details.html',{'beneficiary': beneficiary})
 
+
+
+
 def beneficiary_delete(request, pk):
     beneficiary = get_object_or_404(Beneficiary,pk = pk)
 

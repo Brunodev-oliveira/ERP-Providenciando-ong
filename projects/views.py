@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Project, Enrollment
-from beneficiaries.models import Beneficiary
+from .models import Project
 from projects.forms import ProjectForm
 
 
