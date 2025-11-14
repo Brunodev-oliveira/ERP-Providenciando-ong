@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}{{ 'Detalhes do Doação' }}{% endblock %}
+{% load humanize %}
+{% block title %}{{ 'Detalhes da Doação' }}{% endblock %}
 
  {% block extra_head %}
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
@@ -42,7 +43,7 @@
                 </div>
                  <div class="sm:col-span-1">
                     <dt class="text-sm font-medium text-gray-500 ">Mês Referencia:</dt>
-                    <dd class="mt-1 text-sm text-gray-900 ">{{donation.donation_month}}</dd>
+                    <dd class="mt-1 text-sm text-gray-900 ">{{donation.get_donation_month_display}}</dd>
                 </div>
 
                 <div class="sm:col-span-1">
@@ -65,7 +66,10 @@
             </dl>
         </div>
         <div class="flex flex-col gap-4 border-t border-gray-200  bg-primary  p-6 sm:flex-row sm:justify-between sm:items-center">
+            <button class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90">Registrar nova doação
+            </button>
             <div class="flex gap-3">
+                
                 <button
                     class="inline-flex items-center justify-center rounded bg-blue-button/20  px-4 py-2 text-sm font-medium text-blue-button hover:bg-blue-button/30 ">Editar doação
                 </button>
@@ -73,9 +77,7 @@
                     class="inline-flex items-center justify-center rounded bg-red-100  px-4 py-2 text-sm font-medium text-red-600  hover:bg-red-200 ">Deletar doação
                 </button>
             </div>
-            <button
-                class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90">Registrar
-                Doação</button>
+            
         </div>
     </div>
 </section>
