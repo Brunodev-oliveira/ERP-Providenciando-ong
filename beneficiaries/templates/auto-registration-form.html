@@ -98,7 +98,8 @@
                             <label class="block text-sm font-medium text-black "
                                 for="{{ form.projects.id_for_label }}">Escolha um ou mais projetos</label>
                            {{form.projects}}
-                        </div>                       
+                        </div>   
+                        <!-- NÃO APAGAR FIX PARA: BRUNO                     -->
                         <!-- <div class="col-span-2">
                             <label class="block text-sm font-medium text-black "
                                 for="{{ form.projeto.id_for_label }}">Escolha um projeto</label>
@@ -113,6 +114,7 @@
                     {% if success %}
                         <p class="text-green-600 font-semibold mb-4">Beneficiário cadastrado com sucesso!</p>
                     {% endif %}
+                    
                     <!-- {% if form.errors %}
                         <div class="text-red-600 font-semibold mt-4">
                         {{ form.errors }}

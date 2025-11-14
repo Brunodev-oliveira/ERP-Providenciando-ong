@@ -5,6 +5,7 @@ from beneficiaries.models import Beneficiary
 from projects.models import Project
 
 class BeneficiariesModelForm(forms.ModelForm):
+     #  NÃO APAGAR FIX PARA: BRUNO 
     # projeto = forms.ModelChoiceField(
     #     queryset = Project.objects.all(),
     #     required = True,
@@ -20,7 +21,7 @@ class BeneficiariesModelForm(forms.ModelForm):
     class Meta:
         model = Beneficiary
         fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status","projects",)
-
+        #  NÃO APAGAR FIX PARA: BRUNO                     
         # fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status","projeto")
 
 
