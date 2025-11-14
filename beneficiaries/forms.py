@@ -77,7 +77,7 @@ class BeneficiariesModelForm(forms.ModelForm):
                 'class': 'block w-full rounded-lg border-gray-300 bg-white placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
             }),
-            'projects': forms.Select(attrs={
+            'projects': forms.SelectMultiple(attrs={
                 'class': 'block w-full rounded-lg border-gray-300 bg-white '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
             }),
