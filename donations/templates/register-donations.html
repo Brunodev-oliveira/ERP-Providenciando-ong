@@ -16,16 +16,15 @@
         <div class="mb-8 flex items-center justify-between">
             <div>
                 <h2 class="text-3xl font-bold text-zinc-900 ">
-                    Histórico de Doações
+                    Cadastrar Doação
                 </h2>
                 <p class="text-zinc-600 ">
-                    Visualizar e filtrar todas as doações feitas aos beneficiários     
+                    Visualizar e efetuar doações aos beneficiários elegíveis    
                 </p>
             </div>
-            <button
-                class="rounded-lg bg-blue-button px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-button/90 focus:outline-none focus:ring-4 focus:ring-blue-button/50">
-               <a href=""> Cadastrar nova doação</a>
-            </button>
+
+            
+
         </div>
         <div class="rounded-lg border border-zinc-200 bg-white shadow-sm ">
             <div class="flex items-center justify-between border-b border-zinc-200 p-4 ">
@@ -37,46 +36,84 @@
                         class="form-input w-full rounded-lg border-zinc-300 bg-primary py-2 pl-10 pr-4 text-zinc-900 placeholder-zinc-400 focus:border-blue-button focus:ring-blue-button "
                         id="search" placeholder="Buscar pelo nome ou ou CPF do Beneficiário" type="text" />
                 </div>
+                <div>
+                    <span class="badge fs-6" id="counter-badge">
+                        <span id="selected-count">0</span> / {{ form.beneficiaries.field.queryset.count }} selecionado(s)
+                    </span>
+                </div>
+                <div class=" w-50 rounded-lg text-center font-semibold text-secondary border-zinc-300 bg-blue-button py-2 placeholder-zinc-400 focus:border-blue-button focus:ring-blue-button ">
+                    {% if available_stock_count > 0 %}
+
+                    <h3>Cestas disponíveis:</h3>
+                    <span >
+                        
+                        {{available_stock_count}}
+
+                    </span>
+                    {% else %}
+                    <h3 class="font-medium">Não há cestas disponíveis</h3>
+                    {% endif %}
+
+                    
+
+                </div>
 
             </div>
 
-            <!-- lista de Fornecedores -->
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-sm text-zinc-500 ">
-                    <thead class="bg-zinc-50 text-xs uppercase text-zinc-700  ">
-                        <tr class=" text-center">
-                            <th class="px-6 py-3 text-left" scope="col ">Nome do beneficiário</th>
-                            <th class="px-6 py-3 " scope="col ">CPF</th>
-                            <th class="px-6 py-3" scope="col ">Data/Registro</th>
-                            <th class="px-6 py-3" scope="col ">Código da Doação</th>
-                            <th class="px-6 py-3" scope="col">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if donations %}
+            <!-- lista de beneficiários -->
+            <form method="POST" action="{% url 'donations:registrar_doaçoẽs' %}" class="space-y-6">
+             {% csrf_token %}
+            {% if form.beneficiaries.field.queryset.count > 0 %}
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-sm text-zinc-500 ">
+                        <thead class="bg-zinc-50 text-xs uppercase text-zinc-700  ">
+                            <tr class=" text-center">
+                                <th class="px-6 py-3 text-left" scope="col ">Nome do beneficiário</th>
+                                <th class="px-6 py-3 " scope="col ">CPF</th>
+                                <th class="px-6 py-3" scope="col ">E-mail</th>
+                                <th class="px-6 py-3" scope="col ">Telefone</th>
+                                <th class="px-6 py-3" scope="col">CEP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
 
-                        {%for donation in donations%}
-                        <tr class="border-b border-border-light bg-white hover:bg-zinc-50 text-center ">
-                            <th class="whitespace-nowrap px-6 py-4 font-medium text-zinc-900 text-left" scope="row"><a href="{% url 'donations:detalhes_doação' donation.id_donation %} ">{{donation.beneficiary_fk.beneficiary_name}}</a></th>
-                            <td class="px-6 py-4">{{donation.beneficiary_fk.cpf}}</td>
-                            <td class="px-6 py-4">{{donation.donation_date}}</td>
-                            <td class="px-6 py-4">{{donation.id_donation}}</td>
-                            <td class="px-6 py-4 text-center">
-                                <button
-                                    class="rounded-md bg-blue-button/25 px-3 py-1.5 text-sm font-medium text-blue-buttonlight hover:bg-zinc-200 ">Editar</button>
-                                <!-- <button
-                                    class="ml-2 rounded-md bg-red-100 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-200 " onclick="deletar('{{ supplier.id_supplier }}')">Excluir</button> -->
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        {% else %}
-                        <div class="alert alert-info">
-                            <p class="ml-4">Nenhum Beneficiario elegível no momento.</p>
-                        </div> 
-                        {%endif%}
-                    </tbody>
-                </table>
-            </div>
+                            {% for beneficiary in form.beneficiaries.field.queryset %} 
+                            <tr class="border-border-light bg-white hover:bg-zinc-50 text-center ">
+                                <th class="flex gap-x-4 whitespace-nowrap px-6 py-4 font-medium text-zinc-900 text-left" scope="row">
+                                    <input type="checkbox" name="beneficiaries" value="{{ beneficiary.id_beneficiary }}">{{beneficiary.beneficiary_name}}</th>
+                                <td class="px-6 py-4">{{beneficiary.cpf}}</td>
+                                <td class="px-6 py-4">{{beneficiary.email}}</td>
+                                <td class="px-6 py-4">{{beneficiary.phone}}</td>
+                                <td class="px-6 py-4">{{beneficiary.zip_code}}</td>
+                            </tr>
+
+
+                             {% endfor %}
+                             {% else %}
+                            <div class="alert alert-info">
+                                <p class="ml-4">Nenhum Beneficiario elegível no momento.</p>
+                            </div> 
+                            {% endif %} 
+
+                        </tbody>
+                    </table>
+
+                    
+
+                    <div class=" flex flex-row-reverse pt-6 pb-6 pr-4 border-t border-slate-200 ">
+                           
+
+                        <input type="submit"  value="Cadastrar doações selecionadas " class=" rounded-lg bg-blue-button px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-button/90 focus:outline-none focus:ring-4 focus:ring-blue-button/50"/>
+
+                        {% if messages %}
+                            {% for message in messages %}
+                        <div class="w-full pl-6 text-red-600 font-medium alert alert-{{ message.tags }} self-center mx-auto"><span>{{ message }}</span></div>
+                         {% endfor %}
+                        {% endif %} 
+
+                    </div>
+                </div>
+            </form>    
         </div>
     </section>
 
@@ -86,6 +123,7 @@
 {% block extra_js %}
 
 <script>
+    // Filtro de busca
     const searchInput = document.getElementById('search');
     searchInput.addEventListener('input', function() {
         const query = searchInput.value.toLowerCase();
@@ -123,7 +161,82 @@
 
 
 
-    // Filtar por status, data, etc. pode ser adicionado aqui
+
+
+
+
+    const MAX_SELECTIONS = {{ available_stock_count }};
+    
+    function updateSelectedCount() {
+        const checkboxes = document.querySelectorAll('input[name="beneficiaries"]');
+        const selectedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+        
+        // Atualiza o contador
+        document.getElementById('selected-count').textContent = selectedCount;
+        
+        // Atualiza cor do feedbck
+        const badge = document.getElementById('counter-badge');
+        if (selectedCount === MAX_SELECTIONS) {
+            badge.className = 'px-4 py-2 rounded-lg bg-green-500 text-white font-semibold text-sm';
+        } else if (selectedCount > 0) {
+            badge.className = 'px-4 py-2 rounded-lg bg-yellow-500 text-white font-semibold text-sm';
+        } else {
+            badge.className = 'px-4 py-2 rounded-lg bg-blue-500 text-white font-semibold text-sm';
+        }
+        
+        //  Desabilita marcadores  ao atingir limite
+        checkboxes.forEach(checkbox => {
+            const row = checkbox.closest('tr');
+            
+            if (!checkbox.checked && selectedCount >= MAX_SELECTIONS) {
+                checkbox.disabled = true;
+                row.style.opacity = '0.5';
+                row.style.cursor = 'not-allowed';
+            } else if (!checkbox.checked) {
+                checkbox.disabled = false;
+                row.style.opacity = '1';
+                row.style.cursor = 'pointer';
+            }
+        });
+        
+        // desabilita o botão de submit
+        const submitBtn = document.querySelector('input[type="submit"]');
+        if (selectedCount === 0) {
+            submitBtn.disabled = true;
+            submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            submitBtn.disabled = false;
+            submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+    }
+    
+    // Eventos
+    document.getElementById('search').addEventListener('input', function(e) {
+        const searchTerm = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            const name = row.querySelector('th').textContent.toLowerCase();
+            const cpf = row.querySelectorAll('td')[0].textContent.toLowerCase();
+            
+            if (name.includes(searchTerm) || cpf.includes(searchTerm)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const checkboxes = document.querySelectorAll('input[name="beneficiaries"]');
+        
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', updateSelectedCount);
+        });
+        
+        updateSelectedCount();
+    });
+
 
 </script>
 

@@ -17,6 +17,9 @@ def beneficiary_list(request):
         'beneficiaries': beneficiaries
     })
 
+
+
+
 def beneficiary_details(request,pk):
 
     beneficiary = get_object_or_404(Beneficiary,pk = pk )
@@ -57,15 +60,17 @@ def beneficiary_form(request):
         form = BeneficiariesModelForm(request.POST)
         if form.is_valid():
 
-            beneficiario = form.save(commit=False)
-            beneficiario.save()
+            beneficiary = form.save(commit=False)
+            beneficiary.save()
 
-            projeto = form.cleaned_data['projeto']
-            Enrollment.objects.create(
-                beneficiary_fk = beneficiario,
-                project_fk = projeto
+            projects = form.cleaned_data['projects_n']
 
-            ) 
+            for project in projects:
+                Enrollment.objects.create(
+                    beneficiary_fk = beneficiary,
+                    project_fk = project
+
+                ) 
 
             success = True  
             form = BeneficiariesModelForm()

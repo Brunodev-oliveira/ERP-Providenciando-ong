@@ -76,19 +76,17 @@
                    
             </dl>
         </div>
-        <div class="flex flex-col gap-4 border-t border-gray-200  bg-primary  p-6 sm:flex-row sm:justify-between sm:items-center">
+        <div class="flex flex-row justify-end gap-4 border-t border-gray-200  bg-primary  p-6 ">
             <div class="flex gap-3">
                 <button
                     class="inline-flex items-center justify-center rounded bg-blue-button/20  px-4 py-2 text-sm font-medium text-blue-button hover:bg-blue-button/30 ">
-                    <a href="{% url 'stock:editar_fornecedor' supplier.id_supplier %}">Editar Fornecedor
+                    <a href="{% url 'stock:editar_fornecedor' supplier.id_supplier %}">Editar Fornecedor</a>
                 </button>
                 <button
                     class="inline-flex items-center justify-center rounded bg-red-100  px-4 py-2 text-sm font-medium text-red-600  hover:bg-red-200 " onclick="deletar('{{ supplier.id_supplier }}')">Deletar Fornecedor
                 </button>
             </div>
-            <button
-                class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90">Registrar
-                Doação</button>
+            
         </div>
     </div>
 </section>
@@ -102,7 +100,7 @@
  <script>
     const deletar = async(id)=>{
         
-        const confirmacao = confirm(`Deseja mesmo excluir {{supplier.supplier_name}}`)
+        const confirmacao = confirm('Deseja mesmo excluir {{supplier.supplier_name}}')
 
         if(!confirmacao){
             return ;
@@ -118,7 +116,7 @@
         },
         
         })
-        window.location.replace("{% url 'sotck_suppliers:Fornecedores'  %}");
+        window.location.replace("{% url 'stock:fornecedores'  %}");
     }
 
  </script>

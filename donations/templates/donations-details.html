@@ -65,17 +65,17 @@
     
             </dl>
         </div>
-        <div class="flex flex-col gap-4 border-t border-gray-200  bg-primary  p-6 sm:flex-row sm:justify-between sm:items-center">
-            <button class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90">Registrar nova doação
+        <div class="flex flex-row-reverse gap-4 border-t border-gray-200  bg-primary  p-6 ">
+            <button class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90" onclick="donation_register_send('{{donation.beneficiary_fk.id_beneficiary}}') " >Registrar nova doação
             </button>
             <div class="flex gap-3">
                 
-                <button
+                <!-- <button
                     class="inline-flex items-center justify-center rounded bg-blue-button/20  px-4 py-2 text-sm font-medium text-blue-button hover:bg-blue-button/30 ">Editar doação
                 </button>
                 <button
                     class="inline-flex items-center justify-center rounded bg-red-100  px-4 py-2 text-sm font-medium text-red-600  hover:bg-red-200 ">Deletar doação
-                </button>
+                </button> -->
             </div>
             
         </div>
@@ -86,3 +86,48 @@
  
  
  {%endblock%}
+
+ {% block extra_js%}
+
+  
+<script>
+    const donation_register_send = async(id)=>{
+        const confirmation = confirm('Deseja registrar uma doação para {{donation.beneficiary_fk.beneficiary_name}} ?');
+
+        if(!confirmation){
+            return ;
+
+        }
+
+        try {
+            const response = await fetch(`/donations/register/${id}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const json_dataResponse = await response.json();
+
+            if(json_dataResponse.success) {
+                alert(json_dataResponse.message);
+                window.location.reload();
+            } else {
+                alert(json_dataResponse.message);
+            }
+        } catch(error) {
+        alert('Erro ao processar a requisição.');
+        console.error('Erro:', error);
+        }
+
+
+
+
+
+
+    }
+    
+</script>
+
+{% endblock %}

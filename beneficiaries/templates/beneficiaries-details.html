@@ -7,7 +7,7 @@
  
  {% endblock %}
 
- {%block content%}
+ {% block content %}
  
 <section class="w-full mt-20">
     <div class="mb-8">
@@ -96,32 +96,37 @@
         </div>
         <div class="flex flex-col gap-4 border-t border-gray-200  bg-primary  p-6 sm:flex-row sm:justify-between sm:items-center">
             <div class="flex gap-3">
-                <button
-                    class="inline-flex items-center justify-center rounded  px-4 py-2 text-sm font-medium bg-blue-button/20 text-blue-button hover:bg-blue-button/30 ">
-                    <a href="{% url 'beneficiaries:editar_beneficiario' beneficiary.id_beneficiary %}">Editar Beneficiário
+                <button class="inline-flex items-center justify-center rounded   text-sm font-medium bg-blue-button/20 text-blue-button hover:bg-blue-button/30 cursor-pointer ">
+                    <a class=" w-full h-full px-4 py-2" href="{% url 'beneficiaries:editar_beneficiario' beneficiary.id_beneficiary %}">
+                        Editar Beneficiário
+                    </a>
                 </button>
-                <button
-                    class="inline-flex items-center justify-center rounded bg-red-100  px-4 py-2 text-sm font-medium text-red-600  hover:bg-red-200  " onclick="deletar(`{{beneficiary.id_beneficiary}}`)">Deletar Beneficiário
+                <button class="inline-flex items-center justify-center rounded bg-red-100 px-4 py-2 text-sm font-medium text-red-600  hover:bg-red-200 cursor-pointer " onclick=" deletar(`{{beneficiary.id_beneficiary}}`) ">
+                    Deletar Beneficiário
                 </button>
             </div>
-            <button
-                class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90">Registrar
-                Doação</button>
+            <button class="inline-flex items-center justify-center rounded bg-blue-button px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-button/90 cursor-pointer" onclick="donation_register_send('{{beneficiary.id_beneficiary}}') ">
+                Registrar Doação
+            </button>
         </div>
+         <!-- {% if messages %}
+            {% for message in messages %}
+        <div class="w-full pl-6 text-red-600 font-medium alert alert-{{ message.tags }} self-center mx-auto">
+            <span>{{ message }}</span>
+        </div>
+            {% endfor %}
+         {% endif %}  -->
     </div>
 </section>
  
  
- 
- 
- {%endblock%}
+ {% endblock %}
 
- {% block extra_js%}
+ {% block extra_js %}
  <script>
     const deletar = async(id)=>{
-        {{beneficiary.beneficiary_name}}
 
-        const confirmacao = confirm(`Deseja mesmo excluir {{beneficiary.beneficiary_name}}`)
+        const confirmacao = confirm(`Deseja mesmo excluir {{beneficiary.beneficiary_name}}`);
 
         if(!confirmacao){
             return ;
@@ -134,11 +139,50 @@
 
             'X-CSRFToken': '{{ csrf_token }}',
             'Content-Type': 'application/json',
-        },
+        }
         
         })
         window.location.replace("{% url 'beneficiaries:Beneficiarios'  %}");
     }
+
+    const donation_register_send = async(id)=>{
+        const confirmation = confirm('Deseja registrar uma doação para {{ beneficiary.beneficiary_name }} ?');
+
+        if(!confirmation){
+            return ;
+
+        }
+
+        try {
+            const response = await fetch(`/donations/register/${id}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            const json_dataResponse = await response.json();
+
+            if(json_dataResponse.success) {
+                alert(json_dataResponse.message);
+                window.location.reload();
+            } else {
+                alert(json_dataResponse.message);
+            }
+        } catch(error) {
+        alert('Erro ao processar a requisição.');
+        console.error('Erro:', error);
+        }
+
+
+
+
+
+
+    }
+    
+
 
  </script>
   

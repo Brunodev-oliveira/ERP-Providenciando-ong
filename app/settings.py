@@ -60,7 +60,7 @@ ROOT_URLCONF = 'app.urls'
 
 LOGIN_URL = 'accounts/login/'
 
-LOGIN_REDIRECT_URL = '/beneficiaries/'
+LOGIN_REDIRECT_URL = '/beneficiaries/list/'
 
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 

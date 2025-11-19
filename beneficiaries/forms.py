@@ -5,8 +5,8 @@ from beneficiaries.models import Beneficiary
 from projects.models import Project
 
 class BeneficiariesModelForm(forms.ModelForm):
-     #  NÃO APAGAR FIX PARA: BRUNO 
-    # projeto = forms.ModelChoiceField(
+    #  NÃO APAGAR FIX PARA: BRUNO 
+    #     projeto = forms.ModelChoiceField(
     #     queryset = Project.objects.all(),
     #     required = True,
     #     label= 'Projeto',
@@ -15,12 +15,24 @@ class BeneficiariesModelForm(forms.ModelForm):
 
     # )
 
+    ##############################################
+    projects_n = forms.ModelMultipleChoiceField(
+    queryset = Project.objects.all(),
+    required = True,
+    label= 'projects',
+    widget= forms.SelectMultiple(attrs = {"class" : "block w-full rounded-lg border border-border-light bg-primary border focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2"
+    })
+
+    )
+
+
+
 
 
 
     class Meta:
         model = Beneficiary
-        fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status","projects",)
+        fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status","projects_n",)
         #  NÃO APAGAR FIX PARA: BRUNO                     
         # fields = ("beneficiary_name","birth_date","cpf","zip_code","street","address_number","address_complement","neighborhood","city","state","phone","email","occupation","family_income","dependents_count","household_members","status","projeto")
 
@@ -28,93 +40,93 @@ class BeneficiariesModelForm(forms.ModelForm):
 
         widgets = {
             'beneficiary_name': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'Digite o nome completo',
             }),
             'birth_date': forms.DateInput(attrs={
                 'type': 'date',
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
             }),
             'cpf': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': '000.000.000-00'           }),
             'zip_code': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': '00.000-00'
             }),
             'street': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'Digite o endereço aqui'
             }),
             'address_number': forms.NumberInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'Nº: casa',        
             }),
             'address_complement': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
             }),
             'neighborhood': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'Digite o bairro',
             }),
             'city': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'Digite a cidade',         
             }),
             'state': forms.Select(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm'
             }),
             'phone': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder' : '(00) 00000-0000',
             }),
             'email': forms.EmailInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder' : 'Digite o email'
 
             }),
             'dependents_count': forms.NumberInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': '01'         
             }),
             'household_members': forms.NumberInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': '01'
             }),
             'status': forms.Select(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'UF'
             }),
             'occupation': forms.TextInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
              'placeholder' : 'Digite a Profissâo',
 
             }),
             'family_income': forms.NumberInput(attrs={
-                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary border placeholder-gray-400 '
+                'class': 'mt-1 placeholder-subtitle block w-full rounded-lg border border-border-light bg-primary  placeholder-gray-400 '
                          'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2 shadow-sm',
                 'placeholder': 'R$: 000,00'         
             }),
-            'projects': forms.SelectMultiple(attrs={
-                'class': 'block w-full rounded-lg border-gray-300 bg-white '
-                         'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
-            }),
+            # 'projects': forms.SelectMultiple(attrs={
+            #     'class': 'block w-full rounded-lg border border-border-light bg-pimary '
+            #              'focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2'
+            # }),
         }
            
     def clean_cpf(self):
@@ -173,7 +185,7 @@ class auto_register_Form(forms.ModelForm):
         queryset = Project.objects.all(),
         required = True,
         label= 'Projeto',
-        widget= forms.Select(attrs = {"class" : "block w-full rounded-lg border border-border-light bg-primary border focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2"
+        widget= forms.Select(attrs = {"class" : "block w-full rounded-lg border border-border-light bg-primary  focus:border-blue-500 focus:ring focus:ring-blue-200 text-gray-700 p-2"
         })
 
     )

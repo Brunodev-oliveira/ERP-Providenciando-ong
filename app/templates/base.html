@@ -52,7 +52,7 @@
                 <!-- <li><a class="hover:text-blue-buttonlight font-display " href="">Início</a></li> -->
                 <li><a class="hover:text-blue-buttonlight font-display " href="{% url 'beneficiaries:Beneficiarios' %}">Beneficiário</a></li>
                 <li><a class="hover:text-blue-buttonlight font-display " href="{% url 'projects:Projetos' %}">Projeto</a></li>
-                <li><a class="hover:text-blue-buttonlight font-display " href="{% url 'stock:Fornecedores' %}">Fornecedor</a></li>
+                <li><a class="hover:text-blue-buttonlight font-display " href="{% url 'stock:fornecedores' %}">Fornecedor</a></li>
                 <li><a class="hover:text-blue-buttonlight font-display " href=" {% url 'stock:entradas' %} ">Estoque</a></li>
                 <li><a class="hover:text-blue-buttonlight font-display " href="{% url 'donations:Doação' %}">Doação</a></li>
             </ul> 
@@ -63,7 +63,7 @@
 
             <form method="post" action="{% url 'accounts:logout' %}">
                 {% csrf_token %}       
-                <button type="submit" class="hover:underline">Sair</button>
+                <button type="submit" class="hover:text-blue-buttonlight font-display hover:underline cursor-pointer ">Sair</button>
             </form>
         </div>
     {% endblock %}

@@ -67,7 +67,7 @@
                             <td class="px-6 py-4 text-center">
                                 <button
                                     class="rounded-md bg-blue-button/25 px-3 py-1.5 text-sm font-medium text-blue-buttonlight hover:bg-zinc-200 ">
-                                    <a href="{% url 'beneficiaries:editar_beneficiario' beneficiary.id_beneficiary %}">Editar</button>
+                                    <a href="{% url 'beneficiaries:editar_beneficiario' beneficiary.id_beneficiary %}">Editar</button></a>
                                 <button
                                     class="ml-2 rounded-md bg-red-100 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-200 " onclick="deletar('{{ beneficiary.id_beneficiary }}')">Excluir</button>
                             </td>
@@ -86,6 +86,7 @@
         </div>
         {%endif%}
     </section>
+    {% endblock %}
 
     {% block extra_js %}
     <script>
@@ -125,7 +126,7 @@
         }
 
     </script>
-    {% endblock %}
+    {% endblock %}
 
 
 
@@ -138,5 +139,5 @@
 
 
 
-{% endblock %}
+
 

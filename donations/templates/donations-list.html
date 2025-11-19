@@ -24,7 +24,7 @@
             </div>
             <button
                 class="rounded-lg bg-blue-button px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-button/90 focus:outline-none focus:ring-4 focus:ring-blue-button/50">
-               <a href=""> Cadastrar nova doação</a>
+               <a href="{% url 'donations:registrar_doaçoẽs' %}"> Cadastrar nova doação</a>
             </button>
         </div>
         <div class="rounded-lg border border-zinc-200 bg-white shadow-sm ">
@@ -49,7 +49,7 @@
                             <th class="px-6 py-3 " scope="col ">CPF</th>
                             <th class="px-6 py-3" scope="col ">Data/Registro</th>
                             <th class="px-6 py-3" scope="col ">Código da Doação</th>
-                            <th class="px-6 py-3" scope="col">Ações</th>
+                            <!-- <th class="px-6 py-3" scope="col">Ações</th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -61,12 +61,11 @@
                             <td class="px-6 py-4">{{donation.beneficiary_fk.cpf}}</td>
                             <td class="px-6 py-4">{{donation.donation_date}}</td>
                             <td class="px-6 py-4">{{donation.id_donation}}</td>
-                            <td class="px-6 py-4 text-center">
+                            <!-- <td class="px-6 py-4 text-center">
+                                <button class="rounded-md bg-blue-button/25 px-3 py-1.5 text-sm font-medium text-blue-buttonlight hover:bg-zinc-200 ">Editar</button>
                                 <button
-                                    class="rounded-md bg-blue-button/25 px-3 py-1.5 text-sm font-medium text-blue-buttonlight hover:bg-zinc-200 ">Editar</button>
-                                <!-- <button
-                                    class="ml-2 rounded-md bg-red-100 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-200 " onclick="deletar('{{ supplier.id_supplier }}')">Excluir</button> -->
-                            </td>
+                                    class="ml-2 rounded-md bg-red-100 px-3 py-1.5 text-sm font-medium text-red-700 hover:bg-red-200 " onclick="deletar('{{ supplier.id_supplier }}')">Excluir</button>
+                            </td> -->
                         </tr>
                         {% endfor %}
                         {% else %}

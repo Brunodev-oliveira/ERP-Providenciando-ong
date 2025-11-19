@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Supplier
-from stock.form import suppliers_form
+from django.contrib import messages
+from .models import Supplier,StockEntry, Stock
+from stock.form import suppliers_form, StockEntryForm
 
 
 def supplier_list (request):
@@ -24,13 +25,67 @@ def supplier_delete(request, pk):
     if request.method == 'POST':
         supplier.delete()
         
-        redirect('Fornecedores')
+        redirect('stock:fornecedores')
+
+
+
+def stock_entry_form(request):
+    available_stock_count = StockEntry.objects.filter(
+        is_available=True
+    ).exclude(
+        donation__isnull=False
+    ).count()
+    stock = Stock.objects.get(pk=1)
+
+    form = StockEntryForm(stock=stock)
+    
+    stocks = Stock.objects.all()
+    return render(request, 'stock-entry.html', {'available_stock_count': available_stock_count,'form':form,'stocks': stocks})
+
+
+
+def stock_entry(request,stock_id):
+                
+    stock = Stock.objects.get(pk=stock_id)
+    
+    if request.method == 'POST':
+        form = StockEntryForm(request.POST, stock=stock)
+        
+        if form.is_valid():
+            supplier = form.cleaned_data['supplier_fk']
+            quantity = form.cleaned_data['quantity']
+            
+            # Gera o próximo número de lote automaticamente
+            last_entry = StockEntry.objects.order_by('-batch').first()
+            next_batch = (last_entry.batch + 1) if last_entry else 1
+            
+            # Cria as entradas em lote
+            entries = []
+            for i in range(quantity):
+                entry = StockEntry(
+                    stock_fk=stock,
+                    supplier_fk=supplier,
+                    batch=next_batch
+                )
+                entries.append(entry)
+            
+            # Salva todas de uma vez (bulk_create é mais eficiente)
+            StockEntry.objects.bulk_create(entries)
+            
+            messages.success(request, f'{quantity} entrada(s) registrada(s) com sucesso no lote #{next_batch}!')
+            return redirect('stock:entradas')
+    else:
+        form = StockEntryForm(stock=stock)
+    
+    return render(request, 'stock-entry.html', {'form': form, 'stock': stock})
 
 
 
 
-def stock_entry(request):
-    return render(request,'stock-entry.html')
+
+
+
+
 
 def supplier_form(request):
     success = False 
